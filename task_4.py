@@ -11,6 +11,7 @@ key_skills = []
 d = []
 count = 0
 url = "https://api.hh.ru/vacancies"
+user_agent = {'User-agent': 'Mozilla/5.0'}
 
 for i in range(20):
     url_params = {
@@ -21,7 +22,7 @@ for i in range(20):
     }
 
     # получаем список вакансий
-    result = requests.get(url, params=url_params)
+    result = requests.get(url, params=url_params, headers=user_agent)
     vacancies = result.json().get('items')
 
 
@@ -30,9 +31,9 @@ for i in range(20):
 list_url_vacancy = set(list_uniq_vacancy)
 
 for url_vacancy in list_url_vacancy:
-    time.sleep(0.5)
+    #time.sleep(0.5)
     try:
-        result_vacancy = requests.get(url_vacancy)
+        result_vacancy = requests.get(url_vacancy, headers=user_agent)
         vacancy_data = result_vacancy.json()
         company_name = vacancy_data['employer']['name']
         position = vacancy_data['name']
